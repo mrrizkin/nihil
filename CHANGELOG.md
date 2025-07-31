@@ -10,6 +10,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Planning additional database driver optimizations.
 - Considering support for more specialized nullable types.
 
+## [1.1.1] - 2025-07-31
+
+### Fixed
+
+- **SQL Driver Compatibility**: Fixed `driver.Value` interface implementation for smaller integer types
+  - `NilInt16.Value()` now returns `int64` instead of `int16`
+  - `NilInt32.Value()` now returns `int64` instead of `int32`
+  - `NilByte.Value()` now returns `int64` instead of `uint8`
+  - Resolves "non-Value type returned from Value" errors when using with GORM and other SQL libraries
+
+### Technical Details
+
+- Updated `driverValue()` methods to convert smaller integer types to `int64`
+- Maintains backward compatibility for JSON serialization and `Scan()` methods
+- Updated corresponding tests to expect `int64` values from `Value()` methods
+- No breaking changes for existing functionality
+
 ## [1.1.0] - 2025-07-31
 
 ### Added
@@ -123,6 +140,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Release Notes
+
+### Version 1.1.1 - SQL Driver Fix
+
+This patch release fixes critical SQL driver compatibility issues that were causing errors when using Nihil types with GORM and other SQL libraries.
+
+**Key Fixes:**
+
+- 🔧 **Driver Compatibility**: Fixed `Value()` methods for `NilInt16`, `NilInt32`, and `NilByte`
+- 🗄️ **GORM Support**: Resolves "non-Value type returned from Value" errors
+- ✅ **Test Updates**: Updated tests to match corrected behavior
+
+**What Changed:**
+The `Value()` method now correctly returns `int64` for all integer types, as required by the `driver.Value` interface. This is an internal implementation detail that doesn't affect your usage of the types.
+
+**Migration Guide:**
+No code changes needed! This is a bug fix that makes existing code work correctly with SQL databases.
 
 ### Version 1.1.0 - GORM Integration
 
