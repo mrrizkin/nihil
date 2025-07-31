@@ -59,7 +59,7 @@ func (n *NilInt16) driverValue() (driver.Value, error) {
 	if !n.Valid {
 		return nil, nil
 	}
-	return n.Int16, nil
+	return int64(n.Int16), nil
 }
 
 func (n *NilInt16) Scan(value any) error        { return n.scan(value) }
@@ -78,7 +78,7 @@ func (n *NilInt32) driverValue() (driver.Value, error) {
 	if !n.Valid {
 		return nil, nil
 	}
-	return n.Int32, nil
+	return int64(n.Int32), nil
 }
 
 func (n *NilInt32) Scan(value any) error        { return n.scan(value) }

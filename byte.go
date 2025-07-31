@@ -28,7 +28,7 @@ func (n *NilByte) driverValue() (driver.Value, error) {
 	if !n.Valid {
 		return nil, nil
 	}
-	return n.Byte, nil
+	return int64(n.Byte), nil
 }
 
 func (n *NilByte) Scan(value any) error        { return n.scan(value) }

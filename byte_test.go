@@ -83,10 +83,9 @@ func TestNilByte_DriverValue(t *testing.T) {
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
-	if val != byte(123) {
+	if val != int64(123) {
 		t.Errorf("Expected 123, got %v", val)
 	}
-
 	// Test nil value
 	nilByte := ByteNil()
 	val, err = nilByte.Value()
